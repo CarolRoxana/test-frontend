@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>classes</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +13,12 @@
       <ion-title size="large">classes</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    @for( class of classes; track class ){
+      <ion-item>
+        {{class.Date }} - {{class.StudentId.FirstName }} {{class.StudentId.LastName}}
+      </ion-item>
+    }
+  </ion-list>
 </ion-content>

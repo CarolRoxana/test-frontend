@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>student</ion-title>
+    <ion-title > <ion-icon name="person-circle-outline"></ion-icon> student</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +13,13 @@
       <ion-title size="large">student</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    @for( student of students; track student ){
+    <ion-item>
+        {{student.FirstName}} {{student.LastName}}
+    </ion-item>
+  }
+  </ion-list>
+
 </ion-content>

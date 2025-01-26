@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>tutors</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,5 +12,15 @@
     <ion-toolbar>
       <ion-title size="large">tutors</ion-title>
     </ion-toolbar>
+
   </ion-header>
+
+  <ion-list>
+    @for( tutor of tutors; track tutor ){
+      <ion-item>
+        {{tutor.FirstName }} {{tutor.LastName }} - {{tutor.Speciality}}
+      </ion-item>
+    }
+  </ion-list>
+
 </ion-content>
