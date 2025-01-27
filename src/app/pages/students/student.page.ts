@@ -35,6 +35,7 @@ export class StudentPage implements OnInit {
       await this.presentAlert()
 
       this.students = Students.studentsList
+
     })
   }
 
