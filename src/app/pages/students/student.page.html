@@ -16,8 +16,10 @@
 
   <ion-list>
     @for( student of students; track student ){
-    <ion-item>
+    <ion-item (click)="goToProfile(student.Id)">
+      <ion-label>
         {{student.FirstName}} {{student.LastName}}
+      </ion-label> 
     </ion-item>
   }
   </ion-list>

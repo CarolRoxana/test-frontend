@@ -16,9 +16,28 @@
   </ion-header>
 
   <ion-list>
-    @for( tutor of tutors; track tutor ){
+    <ion-item>
+      <ion-button slot="start">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-select 
+        aria-label="Speciality" 
+        interface="popover"
+        (ionChange)="filterTutors($event)"
+        [value]="selectedSpeciality">
+        <ion-select-option value="">All specialities</ion-select-option>
+        @for(speciality of specialities; track speciality) {
+          <ion-select-option [value]="speciality">{{speciality}}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    @for( tutor of filteredTutors; track tutor ){
       <ion-item>
-        {{tutor.FirstName }} {{tutor.LastName }} - {{tutor.Speciality}}
+        {{tutor.FirstName }} {{tutor.LastName }} 
+        <ion-item class="ion-text-wrap">Speciality: {{tutor.Speciality}} </ion-item>
       </ion-item>
     }
   </ion-list>

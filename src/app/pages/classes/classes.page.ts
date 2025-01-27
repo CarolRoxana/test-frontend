@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { ClassesService } from 'src/app/services/classes.service';
+import { ClassesService } from 'src/app/services/classes.service'
 import { Classes } from 'src/dataDummy/classes'
+import { AlertController } from '@ionic/angular'
 
 
 @Component({
@@ -12,25 +13,60 @@ import { Classes } from 'src/dataDummy/classes'
 export class ClassesPage implements OnInit {
 
   classes: any[] = []
-  error: string | null = null;
+  error: string | null = null
+  searchTerm: string = ''
+  filterClasses: any[] = []
+  noResults = false
   
-  constructor(private classesServices:ClassesService) { }
+  constructor(
+    private classesServices: ClassesService,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
 
     this.classesServices.getClasses().subscribe((data) => {
-      console.log('Clases:', data)
       this.classes = data
+      this.filterClasses = data
     },
-    (error) => {
+    async (error) => {
       console.error('Error al cargar clases:', error)
       this.error = 'No se pudo cargar la lista de clases.'
-
-      alert('Error en la API. Se mostrará data Dummy.')
+      await this.presentAlert()
 
       this.classes = Classes.classesList
-      console.log(this.classes = Classes.classesList)
+      this.filterClasses = Classes.classesList
     })
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Error de conexión',
+      subHeader: 'No se pudo conectar con la API',
+      message: 'Se mostrará información de ejemplo.',
+      buttons: ['Aceptar'],
+      cssClass: 'custom-alert',
+      mode: 'ios'
+    });
+
+    await alert.present();
+  }
+
+
+  searchStudent(event:any){
+    const searchTerm = event.target.value.toLowerCase();
+    this.searchTerm = searchTerm
+
+    if (!searchTerm) {
+      this.classes = this.filterClasses; 
+    } else {
+      this.classes = this.filterClasses.filter(classItem => 
+        classItem.StudentId.FirstName.toLowerCase().includes(searchTerm) ||
+        classItem.StudentId.LastName.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    this.noResults = this.classes.length === 0;
   }
 
 }

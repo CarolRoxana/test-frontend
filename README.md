@@ -24,7 +24,7 @@ Todos los endpoints requieren el siguiente header:
 
 ### Lista de Tutores
 - Mostrar una lista de tutores obtenida del endpoint `/tutors`.
-- Implementar un filtro dinámico por `Speciality`.
+- Implementar un filtro dinámico por `Speciality`.  
 
 ### Lista de Usuarios
 - Mostrar una lista de usuarios obtenida del endpoint `/users`.

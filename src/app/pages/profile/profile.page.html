@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="student"></ion-back-button>
+    </ion-buttons>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> Student profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if(student && !loading){
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Nombre: {{student.FirstName}} {{student.LastName}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Fecha de nacimiento: {{student.DateOfBirth | date:'dd/MM/yyyy'}} </p>
+        <br>
+        <p>Dirección: {{student.Address}}</p>
+      </ion-card-content>
+    </ion-card>
+  }@else if(loading){
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title> Cargando... </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  }@else{
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title> Estudiante no encontrado </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  }
+</ion-content>

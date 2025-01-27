@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Students } from 'src/dataDummy/students'; 
-import { StudentsService } from 'src/app/services/students.service';
+import { Component, OnInit } from '@angular/core'
+import { Students } from 'src/dataDummy/students'
+import { StudentsService } from 'src/app/services/students.service'
+import { Router } from '@angular/router'
+import { AlertController } from '@ionic/angular'
+
 @Component({
   selector: 'app-student',
   standalone: false,
@@ -13,22 +16,43 @@ export class StudentPage implements OnInit {
   students: any[] = []
   error: string | null = null
 
-  constructor(private studentService: StudentsService) { }
+  constructor(
+
+    private studentService: StudentsService,
+    private router: Router,
+    private alertController: AlertController
+  
+  ) { }
 
   ngOnInit() {
     this.studentService.getStudents().subscribe((data) => {
-      console.log('Estudiantes:', data)
+      console.log(data)
       this.students = data
     },
-    (error) => {
+    async(error) => {
       console.error('Error al cargar estudiantes:', error);
       this.error = 'No se pudo cargar la lista de estudiantes.'
+      await this.presentAlert()
 
-      alert('Error en la API. Se mostrará data Dummy.')
-      console.log(this.students = Students.studentsList)
-    }
-  )
+      this.students = Students.studentsList
+    })
+  }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Error de conexión',
+      subHeader: 'No se pudo conectar con la API',
+      message: 'Se mostrará información de ejemplo.',
+      buttons: ['Aceptar'],
+      cssClass: 'custom-alert',
+      mode: 'ios'
+    });
+
+    await alert.present();
+  }
+
+  goToProfile(studentID: string) {
+    this.router.navigateByUrl(`/profile/${studentID}`)
   }
 
 }

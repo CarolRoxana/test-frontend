@@ -15,10 +15,38 @@
   </ion-header>
 
   <ion-list>
-    @for( class of classes; track class ){
-      <ion-item>
-        {{class.Date }} - {{class.StudentId.FirstName }} {{class.StudentId.LastName}}
-      </ion-item>
-    }
+    <ion-item>
+      <ion-button slot="start">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-input placeholder="Search Student"
+      [value]="searchTerm"
+        (ionInput)="searchStudent($event)"
+        clearInput="true"
+        ></ion-input>
+    </ion-item>
   </ion-list>
+
+  @if (noResults) {
+    <ion-item lines="none">
+      <ion-label class="ion-text-center">
+        <ion-text color="medium">
+          <h2>No se encontraron estudiantes con el nombre "{{searchTerm}}"</h2>
+          <p>Intenta con otro nombre</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  }
+  
+  @if (!noResults) {
+    <ion-list>
+      @for( class of classes; track class ){
+        <ion-item >
+          <ion-label>
+            {{class.Date | date:'dd/MM/yyyy HH:mm' }} - {{class.StudentId.FirstName }} {{class.StudentId.LastName}}
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
 </ion-content>
