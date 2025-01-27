@@ -1,3 +1,15 @@
+# Instrucciones para correr la App
+
+- Clonar el repositorio en un entorno local.
+- Ejecutar el siguiente comando en la ruta del proyecto:
+   
+   ionic serve
+
+# Si no tiene ionic instalado ejecutar siguiente comando  
+npm install -g @ionic/cli
+
+Nota: Se debe tener instalado node.js
+
 # WorldsAcross Frontend Test
 
 ## Descripción
